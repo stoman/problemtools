@@ -184,8 +184,8 @@ class Program(Runnable):
                  'python3': r"^#!.*python3\b"}
     _SHEBANG_DEFAULT = ['python2']
     _COMPILE = {
-        'c': 'gcc -g -O2 -static -std=gnu99 -o "%(exe)s" %(src)s -lm' if platform.system() != 'Darwin' else 'gcc -g -O2 -std=gnu99 -o "%(exe)s" %(src)s -lm',
-        'cpp': 'g++ -g -O2 -static -std=gnu++11 -o "%(exe)s" %(src)s' if platform.system() != 'Darwin' else 'g++ -g -O2 -std=gnu++11 -o "%(exe)s" %(src)s',
+        'c': 'gcc-5 -g -O2 -static -std=gnu99 -o "%(exe)s" %(src)s -lm' if platform.system() != 'Darwin' else 'gcc-5 -g -O2 -std=gnu99 -o "%(exe)s" %(src)s -lm',
+        'cpp': 'g++-5 -g -O2 -static -std=gnu++11 -o "%(exe)s" %(src)s' if platform.system() != 'Darwin' else 'g++-5 -g -O2 -std=gnu++11 -o "%(exe)s" %(src)s',
         'java': 'javac -d %(path)s %(src)s',
         'prolog': 'swipl -O -q -g main -t halt -o "%(exe)s" -c %(src)s',
         'csharp': 'dmcs -optimize+ -r:System.Numerics "-out:%(exe)s.exe" %(src)s',
