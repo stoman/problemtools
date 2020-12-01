@@ -1,5 +1,370 @@
-kattis-problemtools (2:1.0) unstable; urgency=low
+kattis-problemtools (1.20191126-rev1) bionic; urgency=medium
 
-  * Initial debian packaging.
+  * fixes to packaging and Docker images for Python 3
+  * various fixes to packaging after py3 was added
 
- -- Per Austrin <austrin@kattis.com>  Thu, 09 Apr 2015 12:26:51 +0200
+ -- Per Austrin <austrin@kattis.com>  Tue, 26 Nov 2019 23:39:08 +0100
+
+kattis-problemtools (1.20191126) bionic; urgency=medium
+
+  [ Per Austrin ]
+  * Add Cobol to default language config
+
+  [ Greg Hamerly ]
+  * This would make problemtools consistent with Kattis.
+
+  [ Simon Lindholm ]
+  * Show input validator output on failure
+  * Require that graders exit with return code 0
+
+  [ Greg Hamerly ]
+  * require plasTeX version 1.0 for python2 compatibility
+
+  [ Simon Lindholm ]
+  * Reset signal dispositions before running exec
+
+  [ Thore Husfeldt ]
+  * Work around pipe2 on non-linux
+
+  [ Greg Hamerly ]
+  * verifyproblem.py: check for invalid characters in data (directories and filenames)
+
+  [ Per Austrin ]
+  * Reenable Python3 in the setup script
+
+  [ Pehr Söderman ]
+  * Build debian for python3
+  * Fixing type checks to use issinstance and be both python2 and python3 compatible.
+  * Removed a type check for long (it will fail on python3, where a separate  long does not exist). Added in a type check for string types instead.
+  * Require python 3.7
+  * Make travis run tests for python 3.7 as well.
+  * Add fsharp to languages.yaml
+
+  [ Per Austrin ]
+  * [latex document class] don't litter sample directory with .pstmp files (fixes #136)
+  * [docker] bump Kotlin version in images to the one currently used in ICPC
+
+ -- Per Austrin <austrin@kattis.com>  Tue, 26 Nov 2019 21:05:14 +0100
+
+kattis-problemtools (1.20190901) bionic; urgency=medium
+
+  [ Greg Hamerly ]
+  * Parenthesize if/else tuples to avoid a crash
+
+  [ Per Austrin ]
+  * a few Python2-compatible Python3 compatibility fixes
+  * Fixes to adapt to interface changes between old and new versions of PlasTeX.
+  * python3 compatiblity: write tex template using Python file objects instead of low-level writes to file descriptor
+  * python3 compat: work around new plastex issue by passing open file object instead of file name to tex parser
+  * remove flawed Template class destructor by making Template a context manager
+  * updates to document class for typesetting sample data for interactive problems
+  * add support for sample interactions in html generation
+  * add sample interactions to guess
+  * fix two small template-related bugs introduced in bdd588e5
+
+ -- Per Austrin <austrin@kattis.com>  Sun, 01 Sep 2019 09:20:18 +0200
+
+kattis-problemtools (1.20190725) bionic; urgency=medium
+
+  [ Per Austrin ]
+  * minor updates to Docker build command, small bump of Kotlin version and don't use previous cached image when building
+
+  [ Simon Lindholm ]
+  * Specify Python 2.7 in .travis.yml
+  * Allow JE in grader output
+  * Update default grader with first_error, worst_error, ignore_sample, accept_if_any_accepted
+  * Validate sanity of grader_flags: ignore_sample
+
+  [ mpsijm ]
+  * Correctly capitalize Mainclass, only change first letter
+
+  [ Simon Lindholm ]
+  * Add partially_accepted directory
+  * Warn when accepted solutions don't get full score
+  * Check that AC solutions get AC on sample
+
+  [ Pehr Söderman ]
+  * Use edition 2018 of rust for compilation
+
+  [ Greg Hamerly ]
+  * replace all os.system calls with subprocess.call
+  * add code_size() to Program class
+  * check return status of subprocess.call properly
+  * specify local directory for build script
+
+ -- Per Austrin <austrin@kattis.com>  Thu, 25 Jul 2019 10:44:42 +0200
+
+kattis-problemtools (1.20190331) bionic; urgency=medium
+
+  [ Per Austrin ]
+  * update docker scripts and docs about config
+  * Use active MathJax CDN in default HTML template. Fixes #117
+
+  [ austrin ]
+  * Update documentation on dependencies in README.md
+
+  [ Per Austrin ]
+  * bugfix to document class: number subfigure references correctly
+
+  [ Simon Lindholm ]
+  * Fix SIGPIPE-related race for interactive problems
+
+ -- Per Austrin <austrin@kattis.com>  Sun, 31 Mar 2019 14:25:09 +0100
+
+kattis-problemtools (1.20190222) bionic; urgency=medium
+
+  [ Per Austrin ]
+  * add a few problemtools Dockerfiles and update release scripts to build+push them
+  * update installation instructions to describe the new official Docker images, and upgrade Docker to second recommended method of running
+  * belated LICENSE update, happy new years
+  * add a config module for enabling more configurability of problemtools
+  * use the new config module to handle programming language config as well
+  * add some basic tests for the config module
+  * add documentation about the new problemtools configuration options
+  * fix old tests of languages module after introduction of separate config module
+
+  [ austrin ]
+  * Fix markdown formatting of docker command
+
+  [ Per Austrin ]
+  * fix python packaging after introduction of config module
+  * follow XDG base dir spec for config file locations
+  * clarify intended usage of problem.yaml configuration
+  * add support for code size limit from problem format spec
+
+  [ Tobias Werth ]
+  * Fix local installation path in README.
+
+  [ Greg Hamerly ]
+  * remove dead code checking for pdf_ok
+
+  [ Per Austrin ]
+  * problem2pdf: replace os.rename by shutil.move so that cross-filesystem moves work Fixes #107
+
+  [ Vaclav Blazej ]
+  * fix bash run scripts
+
+  [ Tobias Werth ]
+  * Add more submissions for the interactive example problem.
+
+  [ Per Austrin ]
+  * display output validator feedback on Judge Error and erroneous Wrong Answers
+  * add command line flag to give control over the cap on the number of additional info lines shown
+  * code formatting cleanup of argparser
+  * Happy new January
+  * if an interactive validator gives JE, always give JE even if the solution also TLE:d/RTE:d
+  * interactive runner: increase size of pipes to 1 MB (see #113)
+  * make setup.py not crash in Python 3 (related to #111)
+  * add a python_requires to setup.py to indicate that we don't support Python 3
+  * add support for Common Lisp
+  * add support for OCaml
+  * add support for Rust
+  * add example submissions for different in Lisp, OCaml and Rust
+  * add Lisp, OCaml and Rust to the languages installed in the 'problemtools/full' Docker image
+
+ -- Per Austrin <austrin@kattis.com>  Fri, 22 Feb 2019 21:53:51 +0100
+
+kattis-problemtools (1.20181111) bionic; urgency=medium
+
+  [ Greg Hamerly ]
+  * Remove extra parenthesis in info message
+
+  [ Simon Lindholm ]
+  * Allow min_score = max_score
+
+  [ Per Austrin ]
+  * add missing dependencies to README.md as reported by @thuvh
+
+  [ Stefan Kraus ]
+  * Don't skip input format validator checks with non-compiling validators
+  * Modify output validator check to match input validator check
+
+  [ Simon Lindholm ]
+  * Extend .gitignore
+  * Reindent interactive.cc
+  * State the condition for the output limit warning
+  * Use validator output if it exits first, for interactive problems
+  * Avoid validator->submission SIGPIPEs
+  * Set runtime = min(runtime, timelim) when validator exits first
+  * Address review comments
+  * Don't leave traces behind when printing \b's
+  * Don't pluralize "1 errors"
+  * Rename sub -> child for testgroups
+  * Add Problem.is_scoring
+  * Use Python3 print syntax
+
+  [ Robin Lee ]
+  * Stub support for kotlin (jvm) target
+
+  [ Per Austrin ]
+  * Adjustments to the way Kotlin is handled
+  * update documentation of languages.yaml format
+
+  [ Simon Lindholm ]
+  * Support test case reuse using symbolic links
+  * Fix setting runtime = timelim
+  * Add a test for the TLE -> WA behavior
+  * Validate grading.objective key
+  * Check that testgroup scores obey 'range'
+  * Warn if subgroups come in surprising order
+  * Add grading.show_test_data_groups flag
+
+  [ Stefan Kraus ]
+  * problem2html.py: Print warning if 'tidy' is not installed.
+
+  [ Greg Hamerly ]
+  * update to VIVA 2.1
+
+  [ Fredrik Niemelä ]
+  * Fix print syntax error
+
+  [ Alexander Scheel ]
+  * Add dependencies on Fedora to README.md
+
+  [ Johan Sannemo ]
+  * Disable pybuild proxy for github.com
+
+  [ william-fiset ]
+  * Added Docker functionality to Kattis problemtools
+  * Updated Dockerfile
+  * Updated Dockerfile removing &&s
+  * install python pip using apt-get
+
+  [ Per Austrin ]
+  * A little cleanup (but no substantive changes) of the Dockerfile and documentation
+  * revert pypy change in languages.yaml that accidentally snuck into the repo
+  * add a Scala solution
+  * fix runoff sentence in documentation
+  * update deb package build dependency from libgmp3-dev to libgmp-dev
+
+  [ Ragnar Groot Koerkamp ]
+  * Add support for Input and Output section in latex statement.
+
+  [ Ludo Pulles ]
+  * Let verifyproblem.sh accept 1 or more problemdirs
+
+  [ Per Austrin ]
+  * update versioning script to produce PEP440-compliant version numbers also for non-release versions
+  * Add mechanism for providing more detailed feedback on obvious errors such as Compile Error
+  * when running verifyproblem on more than one problem package, exit with code 0 only if all packages validate without error
+  * add note to release script about tools used
+
+ -- Per Austrin <austrin@kattis.com>  Sun, 11 Nov 2018 18:56:26 +0100
+
+kattis-problemtools (1.20180426) artful; urgency=medium
+
+  [ Per Austrin ]
+  * fix verifyproblem bug causing crash on empty problem groups
+
+  [ Greg Hamerly ]
+  * Add several tests on input validators.
+  * Fixes based on Per's feedback
+  * Remove duplication of pattern matching regexes
+  * Fix bug where we don't actually add more newlines
+  * Always add at least one space
+
+  [ Simon Lindholm ]
+  * Use C++14
+
+  [ Per Austrin ]
+  * add missing dependency to debian control file
+
+ -- Per Austrin <austrin@kattis.com>  Thu, 26 Apr 2018 19:19:15 +0200
+
+kattis-problemtools (1.20170420) xenial; urgency=medium
+
+  [ Johan Sannemo ]
+  * Add support for new grading settings.
+
+  [ Per Austrin ]
+
+ -- Per Austrin <austrin@kattis.com>  Thu, 20 Apr 2017 19:55:56 +0200
+
+kattis-problemtools (1.20170408) xenial; urgency=medium
+
+  [ Simon Lindholm ]
+  * Support floats in .timelimit
+
+  [ Per Austrin ]
+  * switch checktestdata to release branch
+  * update installation instructions to clarify that repository needs to be cloned
+  * clarify build dependencies
+  * fix formatting
+
+  [ austrin ]
+  * Really fix formatting.
+
+  [ Per Austrin ]
+  * enforce memory limit (via rlimit) for submissions
+  * example submission breaking memory limit
+  * add Scala to languages.yaml
+  * apply time and memory limit to output validators for standard problems (for interactive problems, time and memory limits are not applied correctly)
+  * fix snafus in memory limit capability check
+
+  [ Johan Sannemo ]
+  * Add support for Pascal
+  * Add support for attachments
+
+  [ Per Austrin ]
+
+ -- Per Austrin <austrin@kattis.com>  Sat, 08 Apr 2017 15:03:31 +0200
+
+kattis-problemtools (1.20170202) xenial; urgency=medium
+
+  [ Per Austrin ]
+  * add dh-python as deb dependency
+  * python-yaml is a build dependency since tests depend on it
+
+  [ Pehr Söderman ]
+  * Changing from dmcs to mcs to compile C#
+
+  [ Tobias Werth ]
+  * Fix pip installation instructions.
+
+  [ Robin Lee ]
+  * verifyproblem - exit 1 in case of errors
+
+  [ Per Austrin ]
+  * fix author message feedback file name in validate.h
+
+  [ Thorsten Wißmann ]
+  * Fix python2 calls and shebangs
+  * Update checktestdata to active repo
+
+  [ Per Austrin ]
+  * update release script, git-dch has changed name
+
+ -- Per Austrin <austrin@kattis.com>  Thu, 02 Feb 2017 14:02:12 +0100
+
+kattis-problemtools (1.20160728) trusty; urgency=medium
+
+  * change version numbering scheme slightly
+  * fix use of invalid .name attribute
+  * handle running in an rlimit-restricted environment
+  * add simple test for new limit module
+  * problemset.cls formatting
+  * switch single and double quotes in languages.yaml to avoid escaping of \
+  * add installation via pip as primary recommended way of running problemtools
+  * fix update_version
+  * minor updates to release script
+  * backfix changelog version numbering
+
+ -- Per Austrin <austrin@kattis.com>  Thu, 28 Jul 2016 15:50:26 +0200
+
+kattis-problemtools (1.20160716-rev1) trusty; urgency=medium
+
+  * automatic versioning of the python package from git changelog
+  * include _version.py
+  * new version numbering for deb packaging
+  * move generation of _version.py to shellscript
+  * add a script to make releases
+  * add build status for develop branch
+  * fixes to release scripts
+
+ -- Per Austrin <austrin@kattis.com>  Sat, 16 Jul 2016 22:25:31 +0200
+
+kattis-problemtools (1.20160716) trusty; urgency=low
+
+  * First proper release.
+
+ -- Per Austrin <austrin@kattis.com>  Sat, 16 Jul 2016 19:40:00 +0200
